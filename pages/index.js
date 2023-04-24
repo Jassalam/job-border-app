@@ -52,11 +52,13 @@ export default function Index({jobs, user}) {
               Click here to post a new post
             </button>
             </Link>
+            <Link href={`/dashboard`}>
             <button
             className="ml-5 border px-8 py-2 mt-5 font-bold rounded-full bg-black text-white border-black"
             >
               See all the jobs you posted
             </button>
+            </Link>
             </>
           ):(
             <>
