@@ -1,18 +1,35 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import prisma from "@/lib/prisma"
+import { getJobs } from 'lib/data.js'
+import Jobs from "./components/Jobs"
 
-const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+
+
+
+export default function Index({jobs}) {
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className='first-letter:flex min-h-screen flex-col items-center justify-between p-24'
     >
-      <div>
-      <h1>Home page</h1>
-      <a href='/api/auth/signin'>login</a>
+       <div className='mt-10'>
+      <div className='text-center p-4 m-4'>
+        <h2 className='mb-10 text-4xl font-bold'>Find a job!</h2>
+      </div>
+     <Jobs jobs={jobs}/>
     </div>
-      
+  
     </main>
   )
+}
+
+export async function getServerSideProps(context){
+  
+  let jobs = await getJobs(prisma)
+  jobs = JSON.parse(JSON.stringify(jobs))
+
+  return{
+    props: {
+      jobs,
+    },
+  }
 }
