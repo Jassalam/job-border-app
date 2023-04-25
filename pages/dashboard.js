@@ -55,7 +55,7 @@ export default function Dashboard({jobs, user, applications}){
 export async function getServerSideProps(context){
     const session = await getServerSession(context.req, context.res, authOptions)
     let user = await getUser(session.user.id, prisma)
-    user =JSON.parse(JSON.stringify(user))
+    user = JSON.parse(JSON.stringify(user))
 
     let jobs = []
     let applications = []
@@ -63,9 +63,10 @@ export async function getServerSideProps(context){
     if(user.company){
         jobs = await getJobsPosted(user.id, prisma)
         jobs = JSON.parse(JSON.stringify(jobs))
-    }else{
+    } 
+    else {
         applications = await getApplications(user.id, prisma)
-        applications= Jobs.parse(JSON.stringify(applications))
+        applications = JSON.parse(JSON.stringify(applications))
     }
     
 

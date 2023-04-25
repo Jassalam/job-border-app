@@ -1,6 +1,8 @@
-import { getJob } from "@/lib/data"
+import { getJob, alreadyApplied } from "@/lib/data"
 import prisma from "@/lib/prisma"
+
 import Link from "next/link"
+
 
 export default function Job({job}){
 
@@ -53,14 +55,23 @@ export default function Job({job}){
 }
 
 export async function getServerSideProps(context){
+//const session = await getServerSession(context.req, context.res, authOptions)
+
+
+
     let job = await getJob(context.params.id, prisma)
     job = JSON.parse(JSON.stringify(job))
 
-
+   /* const applied = await alreadyApplied(
+       session.user.id,
+        context.params.id,
+        prisma
+    )*/
 
     return{ 
         props: {
-            job
+            job,
+            //applied,
         },
     }
 }

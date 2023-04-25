@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import { authOptions } from 'pages/api/auth/[...nextauth].js'
-import { getServerSession } from 'next-auth/next'
+
 
 import Link from 'next/link'
 
@@ -11,7 +10,7 @@ import prisma from 'lib/prisma'
 
 export default function Apply({ job }) {
   const [coverletter, setCoverletter] = useState('')
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const router = useRouter()
 
   if (!session) return null
